@@ -7,32 +7,45 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
+@RequestMapping("/employees")
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping(path = "/getAllEmployee", produces = {"application/json"})
+    @GetMapping(produces = {"application/json"})
     public ResponseEntity<List<Employee>> getAllEmployee() {
         List<Employee> employeeList = employeeService.getAllEmployee();
         return ResponseEntity.ok(employeeList);
     }
 
-    @PostMapping(path = "/add", produces = {"application/json"})
+    @GetMapping(path = "/{id}",produces = {"application/json"})
+    public ResponseEntity<Employee> getEmployee(@PathVariable Integer id) {
+        Employee employeeList = employeeService.getEmployee(id);
+        return ResponseEntity.ok(employeeList);
+    }
+
+    @GetMapping(path = "${gender}",produces = {"application/json"})
+    public ResponseEntity<List<Employee>> getEmployeeWithGender(@PathVariable String gender) {
+        List<Employee> employeeList = employeeService.getEmployeeWithGender(gender);
+        return ResponseEntity.ok(employeeList);
+    }
+
+    @PostMapping(produces = {"application/json"})
     public ResponseEntity<List<Employee>> addEmployee(@RequestBody Employee employee) {
         List<Employee> employeeList = employeeService.addEmployee(employee);
         return ResponseEntity.ok(employeeList);
     }
 
-    @PutMapping(path = "/update", produces = {"application/json"})
-    public ResponseEntity<List<Employee>> updateEmployee(@RequestBody Employee employee) {
-        List<Employee> employeeList = employeeService.updateEmployee(employee);
-        return ResponseEntity.ok(employeeList);
+    @PutMapping(path = "/{id}", produces = {"application/json"})
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id,@RequestBody Employee employee) {
+        Employee updatedEmployee = employeeService.updateEmployee(id,employee);
+        return ResponseEntity.ok(updatedEmployee);
     }
 
-    @DeleteMapping(path = "/delete", produces = {"application/json"})
-    public ResponseEntity<List<Employee>> deleteEmployee(@RequestBody Employee employee) {
-        List<Employee> employeeList = employeeService.deleteEmployee(employee);
+    @DeleteMapping(path = "/{id}", produces = {"application/json"})
+    public ResponseEntity<List<Employee>> deleteEmployee(@PathVariable Integer id) {
+        List<Employee> employeeList = employeeService.deleteEmployee(id);
         return ResponseEntity.ok(employeeList);
     }
 }

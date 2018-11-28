@@ -14,11 +14,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
-    @Autowired
-    CompanyService companyService;
-    @GetMapping(path = "", produces = {"application/json"})
-    public ResponseEntity<List<Company>> getAllCompany() {
-        List<Company> companyList = companyService.getAllCompany();
-        return ResponseEntity.ok(companyList);
-    }
+//    @Autowired
+//    CompanyService companyService;
+//    @GetMapping(path = "", produces = {"application/json"})
+//    public ResponseEntity<List<Company>> getAllCompany() {
+//        List<Company> companyList = companyService.getAllCompany();
+//        return ResponseEntity.ok(companyList);
+//    }
+//
+//    @GetMapping(path = "/{numOfCompany}", produces = {"application/json"})
+//    public ResponseEntity<List<Company>> getCompanyWithNumber(@PathVariable int numOfCompany) {
+//        List<Company> companyList = companyService.getCompanyWithNumber();
+//        return ResponseEntity.ok(companyList);
+//    }
 }
